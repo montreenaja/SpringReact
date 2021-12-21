@@ -20,8 +20,9 @@ import React, { Component } from 'react'
                             </a>
                         </li>
                     </ul>
-    
-                    <ul className="navbar-nav ml-auto ">
+                    </div>
+                    <div className="align-right" >
+                    <ul className="navbar-nav ml-auto">
                         <li className="nav-item">
                             <a className="nav-link " href="register.html">
                                 Sign Up
