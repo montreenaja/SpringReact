@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { createProject } from "../../actions/projectActions";
 import classnames from "classnames";
 class AddProject extends Component {
-  constructor(prop) {
+  constructor() {
     super();
 
     this.state = {
@@ -122,7 +122,6 @@ class AddProject extends Component {
                       onChange={this.onChange}
                     />
                   </div>
-
                   <input
                     type="submit"
                     className="btn btn-primary btn-block mt-4"
@@ -136,12 +135,21 @@ class AddProject extends Component {
     );
   }
 }
+
+// <button
+// to="/dashboard"
+// type="submit"
+// className="btn btn-primary btn-block mt-4"
+// >
+// Submit
+// </button>
+
 AddProject.propTypes = {
   createProject: PropTypes.func.isRequired,
   errors: PropTypes.object.isRequired,
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   errors: state.errors,
 });
 
