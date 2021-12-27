@@ -5,13 +5,15 @@ import java.util.Date;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class ProjectTask {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	@Column(updatable = false)
+	@Column(updatable = false, unique = true)
 	private String projectSequence;
 	@NotBlank(message = "Please include a project summary")
 	private String summary;
@@ -19,6 +21,12 @@ public class ProjectTask {
 	private String status;
 	private Integer priority;
 	private Date dueDate;
+	
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name ="backlog_id", updatable = false, nullable = false)
+	@JsonIgnore
+	private Backlog backlog;
+	
 	
 	@Column(updatable = false)
 	private String projectIdentifier;
@@ -84,6 +92,21 @@ public class ProjectTask {
 		this.update_At = update_At;
 	}
 	
+	public String getProjectIdentifier() {
+		return projectIdentifier;
+	}
+
+	public void setProjectIdentifier(String projectIdentifier) {
+		this.projectIdentifier = projectIdentifier;
+	}
+
+	public Backlog getBacklog() {
+		return backlog;
+	}
+	public void setBacklog(Backlog backlog) {
+		this.backlog = backlog;
+	}
+
 	@PrePersist
 	protected void OnCreate() {
 		this.create_At = new Date();		

@@ -1,5 +1,8 @@
 package com.example.demo.domain;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -7,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -25,6 +29,8 @@ public class Backlog {
 	@JsonIgnore
 	private Project project;
 
+	@OneToMany(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER, mappedBy = "backlog", orphanRemoval = true)
+	private List<ProjectTask> projectTasks = new ArrayList<>();
 	
 	public Long getId() {
 		return id;
@@ -50,6 +56,13 @@ public class Backlog {
 	public void setProject(Project project) {
 		this.project = project;
 	}
+	public List<ProjectTask> getProjectTasks() {
+		return projectTasks;
+	}
+	public void setProjectTasks(List<ProjectTask> projectTasks) {
+		this.projectTasks = projectTasks;
+	}
+	
 	
 	
 }
