@@ -39,7 +39,7 @@ public class ProjectTaskService {
 			projectTask.setProjectIdentifier(projectIdentifier);
 
 			// projectTask.getPriority() == 0 handle in form
-			if (projectTask.getPriority() == null) {
+			if (projectTask.getPriority() == null || projectTask.getPriority() == 0) {
 				projectTask.setPriority(3);
 			}
 			if (projectTask.getStatus() == "" || projectTask.getStatus() == null) {
