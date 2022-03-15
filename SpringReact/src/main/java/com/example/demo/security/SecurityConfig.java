@@ -79,8 +79,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		
 
 		// Use H2 Console
-		 http.cors().and().csrf().disable();
-		 http.headers().frameOptions().disable();
+		 http.cors().and().csrf().disable()
+		 .headers().frameOptions().disable();
 		 
 		 http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
 	}
