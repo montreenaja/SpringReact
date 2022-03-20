@@ -13,12 +13,16 @@ class Register extends Component {
       fullName: "",
       password: "",
       confirmPassword: "",
-      errors: {}
+      errors: {},
     };
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
   }
-
+  componentDidMount() {
+    if (this.props.security.validToken) {
+      this.props.history.push("/dashboard");
+    }
+  }
   componentWillReceiveProps(nextProps) {
     if (nextProps.errors) {
       this.setState({ errors: nextProps.errors });
@@ -30,7 +34,7 @@ class Register extends Component {
       username: this.state.username,
       fullName: this.state.fullName,
       password: this.state.password,
-      confirmPassword: this.state.confirmPassword
+      confirmPassword: this.state.confirmPassword,
     };
 
     this.props.createNewUser(newUser, this.props.history);
@@ -53,8 +57,8 @@ class Register extends Component {
                 <div className="form-group">
                   <input
                     type="text"
-                    className={classnames("form-control form-control-lg",{
-                      "is-invalid": errors.fullName
+                    className={classnames("form-control form-control-lg", {
+                      "is-invalid": errors.fullName,
                     })}
                     placeholder="Full Name"
                     name="fullName"
@@ -68,8 +72,8 @@ class Register extends Component {
                 <div className="form-group">
                   <input
                     type="text"
-                    className={classnames("form-control form-control-lg",{
-                      "is-invalid": errors.username
+                    className={classnames("form-control form-control-lg", {
+                      "is-invalid": errors.username,
                     })}
                     placeholder="Email Address (Username)"
                     name="username"
@@ -83,8 +87,8 @@ class Register extends Component {
                 <div className="form-group">
                   <input
                     type="password"
-                    className={classnames("form-control form-control-lg",{
-                      "is-invalid": errors.password
+                    className={classnames("form-control form-control-lg", {
+                      "is-invalid": errors.password,
                     })}
                     placeholder="Password"
                     name="password"
@@ -98,8 +102,8 @@ class Register extends Component {
                 <div className="form-group">
                   <input
                     type="password"
-                    className={classnames("form-control form-control-lg",{
-                      "is-invalid": errors.confirmPassword
+                    className={classnames("form-control form-control-lg", {
+                      "is-invalid": errors.confirmPassword,
                     })}
                     placeholder="Confirm Password"
                     name="confirmPassword"
@@ -107,7 +111,9 @@ class Register extends Component {
                     onChange={this.onChange}
                   />
                   {errors.confirmPassword && (
-                    <div className="invalid-feedback">{errors.confirmPassword}</div>
+                    <div className="invalid-feedback">
+                      {errors.confirmPassword}
+                    </div>
                   )}
                 </div>
                 <input type="submit" className="btn btn-info btn-block mt-4" />
@@ -122,13 +128,12 @@ class Register extends Component {
 
 Register.propTypes = {
   createNewUser: PropTypes.func.isRequired,
-  errors: PropTypes.object.isRequired
+  errors: PropTypes.object.isRequired,
+  security: PropTypes.object.isRequired
 };
 
-const mapStateToProps = state => ({
-  errors: state.errors
+const mapStateToProps = (state) => ({
+  errors: state.errors,
+  security: state.security
 });
-export default connect(
-  mapStateToProps,
-  { createNewUser }
-)(Register);
+export default connect(mapStateToProps, { createNewUser })(Register);
