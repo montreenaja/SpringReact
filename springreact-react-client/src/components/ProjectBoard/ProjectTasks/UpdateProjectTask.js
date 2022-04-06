@@ -81,7 +81,7 @@ import { Link } from 'react-router-dom';
         return (
             <div className="add-PBI">
             <div className="container">
-                <div class="row">
+                <div className="row">
                     <div className="col-md-8 m-auto">
                         <Link to={`/projectBoard/${this.state.projectIdentifier}`}  className="btn btn-light">
                             Back to Project Board
